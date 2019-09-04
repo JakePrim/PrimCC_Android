@@ -33,10 +33,11 @@ public class HomeActivity extends BaseActivity {
 
     //频道类型
     public static CHANNEL[] CHANNELS = new CHANNEL[]{
-            CHANNEL.MY, CHANNEL.DISCORY, CHANNEL.FRIEND
+            CHANNEL.MY, CHANNEL.DISCORY, CHANNEL.FRIEND, CHANNEL.VIDEO
     };
 
     private ImageView search_view;
+
     private ImageView menu_view;
 
     private MagicIndicator indicator_view;
@@ -65,6 +66,7 @@ public class HomeActivity extends BaseActivity {
     private void initIndicator() {
         indicator_view = findViewById(R.id.indicator_view);
         CommonNavigator commonNavigator = new CommonNavigator(this);
+        commonNavigator.setAdjustMode(true);
         commonNavigator.setAdapter(new CommonNavigatorAdapter() {
             @Override
             public int getCount() {

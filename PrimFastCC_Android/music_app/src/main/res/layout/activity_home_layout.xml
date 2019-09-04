@@ -11,15 +11,14 @@
         android:id="@+id/content_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="0dp"
         android:fitsSystemWindows="true">
 
         <RelativeLayout
             android:id="@+id/title_layout"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
             <ImageView
                 android:id="@+id/menu_view"
@@ -42,6 +41,7 @@
                 android:layout_toRightOf="@+id/menu_view"
                 android:layout_marginLeft="42dp"
                 android:layout_marginRight="42dp"
+                android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
