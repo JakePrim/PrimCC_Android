@@ -1,0 +1,121 @@
+package com.prim.lib_network.request;
+
+import android.text.TextUtils;
+
+import com.prim.lib_network.header.HttpHeaders;
+
+import java.net.MalformedURLException;
+
+/**
+ * @author prim
+ * @version 1.0.0
+ * @desc
+ * @time 2019-09-05 - 23:28
+ * @contact https://jakeprim.cn
+ * @name PrimFastCC_Android
+ */
+public abstract class BaseRequest<T, R extends BaseRequest> {
+
+    protected CommonRequest request;
+
+    protected String url;
+
+    protected Method method;
+
+    protected HttpParams params;
+
+    protected HttpHeaders headers;
+
+    protected String baseUrl;
+
+    protected HttpUrl httpUrl;
+
+    protected String realUrl;
+
+    public BaseRequest(CommonRequest request, String url, Method method) {
+        this.request = request;
+        this.url = url;
+        this.method = method;
+        if (request.getParams() != null) {
+            this.params = request.getParams();
+        } else {
+            this.params = new HttpParams();
+        }
+
+        if (request.getHeaders() != null) {
+            this.headers = request.getHeaders();
+        } else {
+            this.headers = new HttpHeaders();
+        }
+
+        this.baseUrl = request.getBaseUrl();
+
+        try {
+            httpUrl = new HttpUrl(url);
+            if (baseUrl == null && url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                baseUrl = httpUrl.getProtocol() + "://" + httpUrl.getHost() + "/";
+                realUrl = url;
+            } else if (baseUrl != null && url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
+                baseUrl = httpUrl.getProtocol() + "://" + httpUrl.getHost() + "/";
+                realUrl = url;
+            } else {
+                realUrl = baseUrl + url;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 支持动态修改base url
+     *
+     * @param url
+     * @return
+     */
+    public R baseUrl(String url) {
+        this.baseUrl = url;
+        try {
+            if (!TextUtils.isEmpty(url))
+                httpUrl = new HttpUrl(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return (R) this;
+    }
+
+    public String getUrl() {
+        return realUrl;
+    }
+
+    public R addParams(String key, String value) {
+        params.put(key, value);
+        return (R) this;
+    }
+
+    public R addHeader(String key, String value) {
+        headers.put(key, value);
+        return (R) this;
+    }
+
+    public Method getMethod() {
+        return method;
+    }
+
+    public HttpParams getParams() {
+        return params;
+    }
+
+    public HttpHeaders getHeaders() {
+        return headers;
+    }
+
+    //设置回调
+    public abstract void enqueue();
+
+//    /**
+//     * 异步请求,开始执行请求
+//     */
+//    public void enqueue() {
+//
+//    }
+}

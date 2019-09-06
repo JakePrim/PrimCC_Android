@@ -1,12 +1,7 @@
 //apply plugin: 'maven'
 //apply from: rootProject.file('config.gradle')
 //
-//println 'compileSdkVersion:' + android.compileSdkVersion
-//
 //def pomName = project.getName()
-//
-//println 'custom:' + project.hasProperty('custom') +" pomVersion："+pomVersion +" pomDescription:"+pomDescription
-//
 //
 ////所有的lib包继承此gradle
 //android {
@@ -147,20 +142,20 @@
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 //}
 //
-////uploadArchives {
-////    repositories {
-////        mavenDeployer {
-////            repository(url: NEXUS_REPOSITORY_URL) {
-////                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
-////            }
-////            pom.project {
-////                name pomName
-////                version pomVersion
-////                description pomDescription
-////                artifactId pomVersion
-////                groupId POM_GROUPID
-////                packaging POM_PACKAGING
-////            }
-////        }
-////    }
-////}
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            repository(url: NEXUS_REPOSITORY_URL) {
+//                authentication(userName: NEXUS_USERNAME, password: NEXUS_PASSWORD)
+//            }
+//            pom.project {
+//                name pomName
+//                version pomVersion
+//                description pomDescription
+//                artifactId pomVersion
+//                groupId POM_GROUPID
+//                packaging POM_PACKAGING
+//            }
+//        }
+//    }
+//}

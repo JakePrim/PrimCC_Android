@@ -21,7 +21,8 @@ ext {
     depsVersion = [
             appcompat     : '28.0.0',
             magicindicator: '1.5.0',
-            immersionbar  : '3.0.0-beta07'
+            immersionbar  : '3.0.0-beta07',
+            okhttp        : '3.3.0'
     ]
 
     //lib包
@@ -32,6 +33,8 @@ ext {
             //状态栏管理 基础依赖包，必须要依赖
             immersionbar        : "com.gyf.immersionbar:immersionbar:${depsVersion.immersionbar}",
             //状态栏管理 fragment快速实现（可选）
-            immersionbarfragment: "com.gyf.immersionbar:immersionbar-components:${depsVersion.immersionbar}"
+            immersionbarfragment: "com.gyf.immersionbar:immersionbar-components:${depsVersion.immersionbar}",
+            //okhttp网络请求
+            okhttp              : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}"
     ]
 }
