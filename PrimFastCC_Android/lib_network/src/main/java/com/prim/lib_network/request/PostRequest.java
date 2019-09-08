@@ -1,5 +1,6 @@
 package com.prim.lib_network.request;
 
+import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
 
 /**
@@ -20,8 +21,8 @@ public class PostRequest<T, R extends PostRequest> extends BaseRequest<T, R> {
     }
 
     @Override
-    public void enqueue() {
-        request.generateRequest(request,this);
-        request.post(realUrl, params, headers);
+    public void enqueue(Callback callback) {
+        request.generateRequest(request, this);
+        request.post(realUrl, params, headers, callback);
     }
 }

@@ -2,6 +2,9 @@ package com.prim.lib_network.request;
 
 import android.content.Context;
 
+import com.prim.lib_network.CommonHttpClient;
+import com.prim.lib_network.HttpClient;
+import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
 
 /**
@@ -18,21 +21,7 @@ public class CommonRequest implements HttpRequest {
 
     private static volatile CommonRequest instance;
 
-    private Context context;
-
-    //可通用的参数
-    private HttpParams params;
-
-    //可通用的请求头
-    private HttpHeaders headers;
-
-    private long connectTimeout;
-
-    private long readTimeout;
-
-    private long writeTimeout;
-
-    private String baseUrl;
+    private CommonHttpClient commonHttpClient;
 
     public CommonRequest(HttpRequest httpRequest) {
         this.httpRequest = httpRequest;
@@ -58,91 +47,39 @@ public class CommonRequest implements HttpRequest {
         return new PostRequest(this, url);
     }
 
-    //----------- 初始化值,添加全局的参数和请求头 ------------//
-
-    public CommonRequest with(Context context) {
-        this.context = context;
-        return this;
-    }
-
-    public CommonRequest addCommonParams(String key, String value) {
-        params.put(key, value);
-        return this;
-    }
-
-    public CommonRequest addCommonParams(HttpParams params) {
-        params.put(params);
-        return this;
-    }
-
-    public CommonRequest addCommonHeader(String key, String value) {
-        headers.put(key, value);
-        return this;
-    }
-
-    public CommonRequest addCommonHeader(HttpHeaders httpHeaders) {
-        headers.put(httpHeaders);
-        return this;
-    }
-
-    public CommonRequest setConnectTimeout(long connectTimeout) {
-        this.connectTimeout = connectTimeout;
-        return this;
-    }
-
-    public CommonRequest setReadTimeout(long readTimeout) {
-        this.readTimeout = readTimeout;
-        return this;
-    }
-
-    public CommonRequest setWriteTimeout(long writeTimeout) {
-        this.writeTimeout = writeTimeout;
-        return this;
-    }
-
-    public CommonRequest setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-        return this;
-    }
-
     public HttpRequest getHttpRequest() {
         return httpRequest;
     }
 
+    public void setHttpClient(CommonHttpClient client) {
+        this.commonHttpClient = client;
+        setHttpClient(client.getHttpClient());
+    }
+
     public HttpParams getParams() {
-        return params;
+        if (commonHttpClient == null)
+            throw new IllegalArgumentException("Need setHttpClient");
+        return commonHttpClient.getParams();
     }
 
     public HttpHeaders getHeaders() {
-        return headers;
-    }
-
-    public long getConnectTimeout() {
-        return connectTimeout;
-    }
-
-    public long getReadTimeout() {
-        return readTimeout;
-    }
-
-    public long getWriteTimeout() {
-        return writeTimeout;
+        return commonHttpClient.getHeaders();
     }
 
     public String getBaseUrl() {
-        return baseUrl;
+        return commonHttpClient.getBaseUrl();
     }
 
     //-----------------------------------------------------------------//
 
     @Override
-    public void get(String url, HttpParams params, HttpHeaders headers) {
-        httpRequest.get(url, params, headers);
+    public void get(String url, HttpParams params, HttpHeaders headers, Callback callback) {
+        httpRequest.get(url, params, headers, callback);
     }
 
     @Override
-    public void post(String url, HttpParams params, HttpHeaders headers) {
-        httpRequest.post(url, params, headers);
+    public void post(String url, HttpParams params, HttpHeaders headers, Callback callback) {
+        httpRequest.post(url, params, headers, callback);
     }
 
     @Override
@@ -156,17 +93,22 @@ public class CommonRequest implements HttpRequest {
     }
 
     @Override
-    public void download(String url, HttpParams params, HttpHeaders headers) {
-        httpRequest.download(url, params, headers);
+    public void download(String url, HttpParams params, HttpHeaders headers, Callback callback) {
+        httpRequest.download(url, params, headers, callback);
     }
 
     @Override
-    public void upload(String url, HttpParams params, HttpHeaders headers) {
-        httpRequest.upload(url, params, headers);
+    public void upload(String url, HttpParams params, HttpHeaders headers, Callback callback) {
+        httpRequest.upload(url, params, headers, callback);
     }
 
     @Override
     public void generateRequest(CommonRequest commonRequest, BaseRequest request) {
         httpRequest.generateRequest(commonRequest, request);
+    }
+
+    @Override
+    public void setHttpClient(HttpClient httpClient) {
+        httpRequest.setHttpClient(httpClient);
     }
 }

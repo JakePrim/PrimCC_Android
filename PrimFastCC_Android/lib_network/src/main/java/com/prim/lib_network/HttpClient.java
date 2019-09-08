@@ -1,5 +1,7 @@
 package com.prim.lib_network;
 
+import com.prim.lib_network.request.CommonRequest;
+
 /**
  * @author prim
  * @version 1.0.0
@@ -9,4 +11,7 @@ package com.prim.lib_network;
  * @name PrimFastCC_Android
  */
 public interface HttpClient {
+    void createClient(CommonHttpClient httpClient, CommonRequest request);
+
+    Object getClient();
 }

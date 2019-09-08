@@ -22,7 +22,8 @@ ext {
             appcompat     : '28.0.0',
             magicindicator: '1.5.0',
             immersionbar  : '3.0.0-beta07',
-            okhttp        : '3.3.0'
+            okhttp        : '3.3.0',
+            gson          : '2.7'
     ]
 
     //lib包
@@ -35,6 +36,7 @@ ext {
             //状态栏管理 fragment快速实现（可选）
             immersionbarfragment: "com.gyf.immersionbar:immersionbar-components:${depsVersion.immersionbar}",
             //okhttp网络请求
-            okhttp              : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}"
+            okhttp              : "com.squareup.okhttp3:okhttp:${depsVersion.okhttp}",
+            gson                : "com.google.code.gson:gson:${depsVersion.gson}",
     ]
 }

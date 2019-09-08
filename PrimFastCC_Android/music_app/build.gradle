@@ -16,11 +16,11 @@ android {
     }
 
 
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation this.rootProject.depsLibs.appcompat
     implementation project(':lib_common_ui')
+    implementation project(':lib_network')
 }

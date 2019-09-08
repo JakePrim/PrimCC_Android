@@ -1,10 +1,15 @@
 package com.prim.lib_network.request;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
+import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
 
+import java.io.File;
 import java.net.MalformedURLException;
+import java.util.List;
 
 /**
  * @author prim
@@ -32,10 +37,13 @@ public abstract class BaseRequest<T, R extends BaseRequest> {
 
     protected String realUrl;
 
+    protected Handler H;
+
     public BaseRequest(CommonRequest request, String url, Method method) {
         this.request = request;
         this.url = url;
         this.method = method;
+        H = new Handler(Looper.getMainLooper());
         if (request.getParams() != null) {
             this.params = request.getParams();
         } else {
@@ -92,6 +100,26 @@ public abstract class BaseRequest<T, R extends BaseRequest> {
         return (R) this;
     }
 
+    public R addParams(String key, File file) {
+        params.put(key, file);
+        return (R) this;
+    }
+
+    public R addParamsFiles(String key, List<File> file) {
+        params.putFiles(key, file);
+        return (R) this;
+    }
+
+    public R addParamsFileWrappers(String key, List<FileWrapper> fileWrappers) {
+        params.putFileWrappers(key, fileWrappers);
+        return (R) this;
+    }
+
+    public R addParams(HttpParams httpParams) {
+        params.put(httpParams);
+        return (R) this;
+    }
+
     public R addHeader(String key, String value) {
         headers.put(key, value);
         return (R) this;
@@ -110,12 +138,5 @@ public abstract class BaseRequest<T, R extends BaseRequest> {
     }
 
     //设置回调
-    public abstract void enqueue();
-
-//    /**
-//     * 异步请求,开始执行请求
-//     */
-//    public void enqueue() {
-//
-//    }
+    public abstract void enqueue(Callback callback);
 }

@@ -46,6 +46,10 @@ public class HttpParams {
         put(key, value);
     }
 
+//    public String getMedthodParams(){
+//
+//    }
+
     public void put(String key, String value) {
         if (key != null && value != null) {
             params.put(key, value);

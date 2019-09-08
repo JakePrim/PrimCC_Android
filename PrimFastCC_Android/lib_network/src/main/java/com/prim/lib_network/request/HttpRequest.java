@@ -1,5 +1,7 @@
 package com.prim.lib_network.request;
 
+import com.prim.lib_network.HttpClient;
+import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
 
 /**
@@ -11,17 +13,19 @@ import com.prim.lib_network.header.HttpHeaders;
  * @name PrimFastCC_Android
  */
 public interface HttpRequest {
-    void get(String url, HttpParams params, HttpHeaders headers);
+    void get(String url, HttpParams params, HttpHeaders headers, Callback callback);
 
-    void post(String url, HttpParams params, HttpHeaders headers);
+    void post(String url, HttpParams params, HttpHeaders headers, Callback callback);
 
     void cancelRequest(String tag);
 
     void cancelAllRequest();
 
-    void download(String url, HttpParams params, HttpHeaders headers);
+    void download(String url, HttpParams params, HttpHeaders headers,Callback callback);
 
-    void upload(String url, HttpParams params, HttpHeaders headers);
+    void upload(String url, HttpParams params, HttpHeaders headers,Callback callback);
 
     void generateRequest(CommonRequest commonRequest, BaseRequest request);
+
+    void setHttpClient(HttpClient httpClient);
 }
