@@ -25,7 +25,7 @@ public class HttpParams {
     /**
      * 普通参数
      */
-    private ConcurrentHashMap<String, Object> params;
+    private ConcurrentHashMap<String, String> params;
 
     /**
      * 文件参数
@@ -46,9 +46,13 @@ public class HttpParams {
         put(key, value);
     }
 
-//    public String getMedthodParams(){
-//
-//    }
+    public ConcurrentHashMap<String, String> getParams() {
+        return params;
+    }
+
+    public ConcurrentHashMap<String, List<FileWrapper>> getFileParams() {
+        return fileParams;
+    }
 
     public void put(String key, String value) {
         if (key != null && value != null) {

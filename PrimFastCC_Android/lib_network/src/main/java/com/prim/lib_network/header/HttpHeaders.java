@@ -47,4 +47,8 @@ public class HttpHeaders {
     private void init() {
         commonHeaders = new LinkedHashMap<>();
     }
+
+    public LinkedHashMap<String, String> getHeaders() {
+        return commonHeaders;
+    }
 }

@@ -1,13 +1,18 @@
 package com.prim.lib_network;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.prim.lib_network.header.HttpHeaders;
-import com.prim.lib_network.request.CommonRequest;
+import com.prim.lib_network.https.HttpsUtil;
 import com.prim.lib_network.request.GetRequest;
 import com.prim.lib_network.request.HttpParams;
 import com.prim.lib_network.request.HttpRequest;
 import com.prim.lib_network.request.PostRequest;
+
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * @author prim
@@ -39,11 +44,22 @@ public class CommonHttpClient {
 
     private String baseUrl;
 
+    private static volatile CommonHttpClient instance;
+
+    private Handler H;
+
+    private SSLSocketFactory sslSocketFactory = HttpsUtil.initSSLSocketFactory();
+
+    private X509TrustManager trustManager = HttpsUtil.initTrustManager();
+
     public CommonHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
+        H = new Handler(Looper.getMainLooper());
     }
 
-    private static volatile CommonHttpClient instance;
+    public Handler getHandler() {
+        return H;
+    }
 
     //------------------------------------ 初始化操作 -------------------------------------//
 
@@ -114,13 +130,31 @@ public class CommonHttpClient {
         return this;
     }
 
+    public CommonHttpClient setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
+        this.sslSocketFactory = sslSocketFactory;
+        return this;
+    }
+
+    public CommonHttpClient setTrustManager(X509TrustManager trustManager) {
+        this.trustManager = trustManager;
+        return this;
+    }
+
+    public SSLSocketFactory getSslSocketFactory() {
+        return sslSocketFactory;
+    }
+
+    public X509TrustManager getTrustManager() {
+        return trustManager;
+    }
+
     public HttpClient getHttpClient() {
         return httpClient;
     }
 
     public void createClient() {
         commonRequest.setHttpClient(this);
-        httpClient.createClient(this,commonRequest);
+        httpClient.createClient(this, commonRequest);
     }
 
     public CommonRequest getRequset() {

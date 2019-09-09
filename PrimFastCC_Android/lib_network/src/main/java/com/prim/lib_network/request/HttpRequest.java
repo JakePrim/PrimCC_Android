@@ -1,5 +1,6 @@
 package com.prim.lib_network.request;
 
+import com.prim.lib_network.CommonRequest;
 import com.prim.lib_network.HttpClient;
 import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;

@@ -2,7 +2,7 @@ package com.prim.lib_network.okhttp;
 
 import com.prim.lib_network.CommonHttpClient;
 import com.prim.lib_network.HttpClient;
-import com.prim.lib_network.request.CommonRequest;
+import com.prim.lib_network.CommonRequest;
 
 import java.util.concurrent.TimeUnit;
 
@@ -36,6 +36,7 @@ public class UseOkHttpClient implements HttpClient {
         builder.readTimeout(httpClient.getReadTimeout(), TimeUnit.MILLISECONDS);
         builder.writeTimeout(httpClient.getWriteTimeout(), TimeUnit.MILLISECONDS);
         builder.followRedirects(true);
+        builder.sslSocketFactory(httpClient.getSslSocketFactory(), httpClient.getTrustManager());
         okHttpClient = builder.build();
     }
 

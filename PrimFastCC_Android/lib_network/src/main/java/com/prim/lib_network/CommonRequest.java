@@ -1,11 +1,12 @@
-package com.prim.lib_network.request;
+package com.prim.lib_network;
 
-import android.content.Context;
-
-import com.prim.lib_network.CommonHttpClient;
-import com.prim.lib_network.HttpClient;
 import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
+import com.prim.lib_network.request.BaseRequest;
+import com.prim.lib_network.request.GetRequest;
+import com.prim.lib_network.request.HttpParams;
+import com.prim.lib_network.request.HttpRequest;
+import com.prim.lib_network.request.PostRequest;
 
 /**
  * @author prim

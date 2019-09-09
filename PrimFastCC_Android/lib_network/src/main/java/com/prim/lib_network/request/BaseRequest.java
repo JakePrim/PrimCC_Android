@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.prim.lib_network.CommonRequest;
 import com.prim.lib_network.callback.Callback;
 import com.prim.lib_network.header.HttpHeaders;
 

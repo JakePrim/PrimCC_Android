@@ -1,7 +1,5 @@
 package com.prim.lib_network;
 
-import com.prim.lib_network.request.CommonRequest;
-
 /**
  * @author prim
  * @version 1.0.0
